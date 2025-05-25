@@ -45,9 +45,9 @@ db.settings({ignoreUndefinedProperties: true})
 const collection = db.collection('boards')
 const taskColId = 'tasks'
 
-// app.listen(PORT, () => {
-//     console.log(`listening on ${PORT}`)
-// })
+app.listen(3000, () => {
+    console.log(`listening on ${3000}`)
+})
 
 app.get('/api/board-exist', async (req,res) => {
     try {
@@ -62,6 +62,9 @@ app.get('/api/board-exist', async (req,res) => {
 })
 
 app.get('/api/board', async (req,res) => {
+    console.log('IT WORKS KINDA')
+    res.status(200).send('Happened heree')
+    return
     try {
         const {id} = req.query
         if(typeof id !== 'string') throw new Error('No board id provided')
@@ -155,7 +158,7 @@ app.post('/api/task', async (req,res) => {
         if(!id) throw new Error('No ID provided')
         if(!task) throw new Error('No task data provided')
         if(!task.id||!task.icon||!task.name) throw new Error('Wrong task data')
-        if(!(await collection.doc(id).get()).exists||!(await collection.doc(id).listCollections()).length) throw new Error('Wrong ID provided')
+        if(!(await collection.doc(id).get()).exists&&!(await collection.doc(id).listCollections()).length) throw new Error('Wrong ID provided')
         await collection.doc(id).collection(taskColId).doc(task.id).set({
             icon: task.icon,
             name: task.name,
