@@ -45,9 +45,9 @@ db.settings({ignoreUndefinedProperties: true})
 const collection = db.collection('boards')
 const taskColId = 'tasks'
 
-app.listen(3000, () => {
-    console.log(`listening on ${3000}`)
-})
+// app.listen(3000, () => {
+//     console.log(`listening on ${3000}`)
+// })
 
 app.get('/api/board-exist', async (req,res) => {
     try {
@@ -62,9 +62,6 @@ app.get('/api/board-exist', async (req,res) => {
 })
 
 app.get('/api/board', async (req,res) => {
-    console.log('IT WORKS KINDA')
-    res.status(200).send('Happened heree')
-    return
     try {
         const {id} = req.query
         if(typeof id !== 'string') throw new Error('No board id provided')
