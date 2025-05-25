@@ -53,7 +53,7 @@ app.get('/api/board-exist', async (req,res) => {
     try {
         const {id} = req.query
         if(typeof id !== 'string') throw new Error('No board id provided')
-        if((await collection.doc(id).get()).exists) res.status(200).send('Exist')
+        if((await collection.doc(id).get()).exists||(await collection.doc(id).listCollections()).length) res.status(200).send('Exist')
         else res.status(404).send('Not exist')
     } catch (error) {
         console.log(error)
@@ -66,7 +66,7 @@ app.get('/api/board', async (req,res) => {
         const {id} = req.query
         if(typeof id !== 'string') throw new Error('No board id provided')
         const board = await collection.doc(id).get()
-        if(board.exists) {
+        if(board.exists||(await collection.doc(id).listCollections()).length) {
             const tasks = ((await collection.doc(id).collection(taskColId).get()).docs.map(doc => {
                 const task = doc.data()
                 return {
@@ -155,7 +155,7 @@ app.post('/api/task', async (req,res) => {
         if(!id) throw new Error('No ID provided')
         if(!task) throw new Error('No task data provided')
         if(!task.id||!task.icon||!task.name) throw new Error('Wrong task data')
-        if(!(await collection.doc(id).get()).exists) throw new Error('Wrong ID provided')
+        if(!(await collection.doc(id).get()).exists||!(await collection.doc(id).listCollections()).length) throw new Error('Wrong ID provided')
         await collection.doc(id).collection(taskColId).doc(task.id).set({
             icon: task.icon,
             name: task.name,
