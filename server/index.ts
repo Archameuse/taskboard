@@ -23,9 +23,7 @@ type Board = {
 
 const app = express()
 app.use(express.json())
-app.use(cors({
-    origin: 'https://taskboard-eight-wheat.vercel.app/'
-}))
+app.use(cors({}))
 
 
 // const PORT = Number(process.env.port)||3000

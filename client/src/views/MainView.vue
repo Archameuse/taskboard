@@ -96,11 +96,10 @@ export default {
     this.tasks = new Map(tasks.map(task => [task.id,task]))
     },
     setBoard(board?:Board) {
-      if(!board) board = {
-          name: 'My Task Board',
-          description: 'Tasks to keep organised',
-        }
-      if(!board.id) board.id = typeof this.$route.params.id === 'string' ? this.$route.params.id : undefined
+      if(!board) board = {name: 'My Task Board'}
+      if(!board?.name&&!board?.description) board.description = 'Tasks to keep organised'
+      if(!board?.name) board.name = 'My Task Board'
+      if(!board?.id) board.id = typeof this.$route.params.id === 'string' ? this.$route.params.id : undefined
       this.board = board
     },
     selectTask (task:Task) {
