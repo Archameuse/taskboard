@@ -28,7 +28,7 @@ app.use(cors({
 }))
 
 
-const PORT = Number(process.env.port)||3000
+// const PORT = Number(process.env.port)||3000
 let SERVICE_ACCOUNT
 if(process.env.SERVICE_ACCOUNT) {
     SERVICE_ACCOUNT = JSON.parse(process.env.SERVICE_ACCOUNT)
@@ -45,9 +45,9 @@ db.settings({ignoreUndefinedProperties: true})
 const collection = db.collection('boards')
 const taskColId = 'tasks'
 
-app.listen(PORT, () => {
-    console.log(`listening on ${PORT}`)
-})
+// app.listen(PORT, () => {
+//     console.log(`listening on ${PORT}`)
+// })
 
 app.get('/api/board-exist', async (req,res) => {
     try {
@@ -209,3 +209,5 @@ app.use((req,res) => {
     // errorhandler
     res.status(404).send('Wrong path')
 })
+
+export default app
