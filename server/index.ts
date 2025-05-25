@@ -24,7 +24,7 @@ type Board = {
 const app = express()
 app.use(express.json())
 app.use(cors({
-    // origin: 'https://unsplashcollectionfern.vercel.app'
+    origin: 'https://taskboard-eight-wheat.vercel.app/'
 }))
 
 
